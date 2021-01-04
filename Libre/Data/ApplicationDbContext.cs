@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Libre.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Libre.Data
 {
@@ -12,8 +13,10 @@ namespace Libre.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            Database.Migrate();
         }
+        public DbSet<IdentityUser> ApplicationUser { get; set; }
         public DbSet<Libre.Models.Book> Book { get; set; }
-        public DbSet<Libre.Models.Gendre> Gendre { get; set; }
+        public DbSet<Libre.Models.Genre> Genre { get; set; }
     }
 }

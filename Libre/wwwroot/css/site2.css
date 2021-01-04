@@ -1,0 +1,222 @@
+﻿a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all
+}
+
+#joobie-icon {
+    width: 150px
+}
+
+a {
+    color: #0366d6
+}
+
+.btn-link {
+    color: #1b6ec2
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac
+}
+
+html {
+    font-size: 14px
+}
+
+@media(min-width:768px) {
+    html {
+        font-size: 16px
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0,0,0,.05)
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit
+}
+
+html {
+    position: relative;
+    min-height: 100%
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px
+}
+
+body {
+    margin-bottom: 60px
+}
+
+.btn-space {
+    margin-top: 2px
+}
+
+.readonly-list-space {
+    margin-top: 5px
+}
+
+.class-space-right {
+    margin-right: 12px
+}
+
+.search-background {
+    background: url('/images/dust_scratches.png')
+}
+
+.backgroundWhite {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px
+}
+
+.backgroundWhiteBorder {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 1px solid #ddd
+}
+
+.backgroundWhiteBorder10Padding {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd
+}
+
+.menu-filter-list li {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px 10px;
+    text-transform: uppercase;
+    background: #f5f5f5;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 13px;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    font-family: "Poppins",sans-serif
+}
+
+    .menu-filter-list li.is-checke, .menu-filter-list li:hover {
+        background-color: #545b62;
+        color: #fff
+    }
+
+#sidebar-wrapper {
+    margin-left: 15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out
+}
+
+    #sidebar-wrapper .sidebar-heading {
+        padding: .875rem 1.25rem;
+        font-size: 1.2rem
+    }
+
+    #sidebar-wrapper .list-group {
+        width: 15rem
+    }
+
+#page-content-wrapper {
+    min-width: 10vw
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0
+}
+
+.job-list-container {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center
+}
+
+@media(min-width:78px) {
+    #sidebar-wrapper {
+        margin-left: 0
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-top: -50rem
+    }
+}
+
+.pagginationButton {
+    min-width: 40px;
+    max-width: 70px
+}
+
+.filter-button {
+    width: 180px;
+    min-width: 100px
+}
+
+@media(max-width:768px) {
+    .filter-toggle {
+        margin-left: 100px
+    }
+
+    .media-margin-top {
+        margin-top: 20px
+    }
+
+    .columns {
+        columns: 1;
+        -webkit-columns: 1;
+        -moz-columns: 1;
+        max-height: 230px;
+        overflow-y: hidden;
+        break-inside: avoid
+    }
+}
+
+@media(min-width:1200px) {
+    .columns {
+        columns: 3;
+        -webkit-columns: 3;
+        -moz-columns: 3
+    }
+}
+
+@media(min-width:768px) and (max-width:1200px) {
+    .columns {
+        columns: 2;
+        -webkit-columns: 2;
+        -moz-columns: 2
+    }
+}
+
+earch-button {
+    min-width: 50px
+}

@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 using System;
+using Libre.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Libre
 {
@@ -30,6 +32,14 @@ namespace Libre
                  .AddDefaultUI()
                  .AddEntityFrameworkStores<ApplicationDbContext>()
                  .AddDefaultTokenProviders();
+
+
+            //services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>>();
+
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<EmailOptions>(Configuration);
+
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

@@ -4,16 +4,14 @@ using Libre.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Libre.Data.Migrations
+namespace Libre.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201229214042_AddedBooksAndGendres")]
-    partial class AddedBooksAndGendres
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +28,7 @@ namespace Libre.Data.Migrations
                     b.Property<string>("CoverType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("GendreId")
+                    b.Property<Guid>("GenreId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Info")
@@ -53,12 +51,12 @@ namespace Libre.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GendreId");
+                    b.HasIndex("GenreId");
 
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Libre.Models.Gendre", b =>
+            modelBuilder.Entity("Libre.Models.Genre", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +67,7 @@ namespace Libre.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Gendre");
+                    b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -215,12 +213,10 @@ namespace Libre.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -257,12 +253,10 @@ namespace Libre.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -274,9 +268,9 @@ namespace Libre.Data.Migrations
 
             modelBuilder.Entity("Libre.Models.Book", b =>
                 {
-                    b.HasOne("Libre.Models.Gendre", "Gendre")
+                    b.HasOne("Libre.Models.Genre", "Genre")
                         .WithMany("Books")
-                        .HasForeignKey("GendreId")
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

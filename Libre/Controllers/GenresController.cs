@@ -8,18 +8,18 @@ using Libre.Models;
 
 namespace Libre.Controllers
 {
-    public class GendresController : Controller
+    public class GenresController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public GendresController(ApplicationDbContext context)
+        public GenresController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Gendre.ToListAsync());
+            return View(await _context.Genre.ToListAsync());
         }
 
         public async Task<IActionResult> Details(Guid? id)
@@ -29,14 +29,14 @@ namespace Libre.Controllers
                 return NotFound();
             }
 
-            var gendre = await _context.Gendre
+            var genre = await _context.Genre
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (gendre == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(gendre);
+            return View(genre);
         }
 
         public IActionResult Create()
@@ -46,16 +46,16 @@ namespace Libre.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Gendre gendre)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                gendre.Id = Guid.NewGuid();
-                _context.Add(gendre);
+                genre.Id = Guid.NewGuid();
+                _context.Add(genre);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(gendre);
+            return View(genre);
         }
 
         public async Task<IActionResult> Edit(Guid? id)
@@ -65,20 +65,20 @@ namespace Libre.Controllers
                 return NotFound();
             }
 
-            var gendre = await _context.Gendre.FindAsync(id);
-            if (gendre == null)
+            var genre = await _context.Genre.FindAsync(id);
+            if (genre == null)
             {
                 return NotFound();
             }
-            return View(gendre);
+            return View(genre);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name")] Gendre gendre)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name")] Genre genre)
         {
-            if (id != gendre.Id)
+            if (id != genre.Id)
             {
                 return NotFound();
             }
@@ -87,12 +87,12 @@ namespace Libre.Controllers
             {
                 try
                 {
-                    _context.Update(gendre);
+                    _context.Update(genre);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GendreExists(gendre.Id))
+                    if (!GenreExists(genre.Id))
                     {
                         return NotFound();
                     }
@@ -103,7 +103,7 @@ namespace Libre.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(gendre);
+            return View(genre);
         }
 
         public async Task<IActionResult> Delete(Guid? id)
@@ -113,14 +113,14 @@ namespace Libre.Controllers
                 return NotFound();
             }
 
-            var gendre = await _context.Gendre
+            var genre = await _context.Genre
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (gendre == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(gendre);
+            return View(genre);
         }
 
 
@@ -128,15 +128,15 @@ namespace Libre.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var gendre = await _context.Gendre.FindAsync(id);
-            _context.Gendre.Remove(gendre);
+            var genre = await _context.Genre.FindAsync(id);
+            _context.Genre.Remove(genre);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GendreExists(Guid id)
+        private bool GenreExists(Guid id)
         {
-            return _context.Gendre.Any(e => e.Id == id);
+            return _context.Genre.Any(e => e.Id == id);
         }
     }
 }
