@@ -16,8 +16,17 @@ namespace Libre
             CreateHostBuilder(args).Build().Run();
         }
 
+        private static string Local = ".Local";
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var env = hostingContext.HostingEnvironment;
+                    config.AddJsonFile("appsettings.json");
+                    config.AddJsonFile($"appsettings.{env.EnvironmentName}.json");
+                    config.AddJsonFile($"appsettings.{env.EnvironmentName + Local}.json");
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
