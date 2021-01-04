@@ -19,7 +19,7 @@ namespace Libre.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Gendre.ToListAsync());
+            return View(await _context.Genre.ToListAsync());
         }
 
         public async Task<IActionResult> Details(Guid? id)

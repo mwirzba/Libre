@@ -45,7 +45,7 @@
                     @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Info)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Gendre.Name)
+                    @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Genre.Name)
                 </th>
                 <th></th>
             </tr>
@@ -76,7 +76,7 @@
                         @Html.DisplayFor(modelItem => item.Info)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Gendre.Name)
+                        @Html.DisplayFor(modelItem => item.Genre.Name)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
