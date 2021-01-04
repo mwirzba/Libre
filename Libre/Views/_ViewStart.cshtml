@@ -1,3 +1,12 @@
-﻿@{
-    Layout = "_Layout";
+﻿@using Libre.Utility;
+
+@{
+    if (User.IsInRole(Strings.Admin) || User.IsInRole(Strings.Moderator))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_UserLayout";
+    }
 }

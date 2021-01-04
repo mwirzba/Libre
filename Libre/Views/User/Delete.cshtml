@@ -1,0 +1,36 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<br />
+<form method="post" asp-action="Delete">
+    <div class="border backgroundWhite">
+        <fieldset disabled>
+            <h2 class="text-info">Usuń Użytkownika</h2>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Email" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Email" class="form-control" />
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="submit" class="btn btn-danger form-control" asp-route-id="@Model.Id" value="Usuń" />
+                    </div>
+                    <div class="col-6">
+                        <a asp-action="Index" class="btn btn-success form-control">Wróć do listy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -23,7 +23,7 @@ namespace Libre.Controllers
         public async Task<IActionResult> Index(SortType sortType = SortType.ascending)
         {
             ViewBag.Sort = sortType;
-            var applicationDbContext = _context.Book.Include(b => b.Gendre);
+            var applicationDbContext = _context.Book.Include(b => b.Genre);
 
             var pagedList = new DataHelper<Book>(applicationDbContext, 1, 5)
                                             .ToPagedList();
@@ -46,7 +46,7 @@ namespace Libre.Controllers
             }
 
             var book = await _context.Book
-                .Include(b => b.Gendre)
+                .Include(b => b.Genre)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (book == null)
@@ -59,13 +59,13 @@ namespace Libre.Controllers
 
         public IActionResult Create()
         {
-            ViewData["GendreId"] = new SelectList(_context.Set<Gendre>(), "Id", "Name");
+            ViewData["GenreId"] = new SelectList(_context.Set<Genre>(), "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Publisher,RealeaseDate,Language,Pages,CoverType,Info,GendreId")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,Title,Publisher,RealeaseDate,Language,Pages,CoverType,Info,GenreId")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace Libre.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GendreId"] = new SelectList(_context.Set<Gendre>(), "Id", "Id", book.GendreId);
+            ViewData["GenreId"] = new SelectList(_context.Set<Genre>(), "Id", "Id", book.GenreId);
             return View(book);
         }
 
@@ -91,7 +91,7 @@ namespace Libre.Controllers
             {
                 return NotFound();
             }
-            ViewData["GendreId"] = new SelectList(_context.Set<Gendre>(), "Id", "Id", book.GendreId);
+            ViewData["GenreId"] = new SelectList(_context.Set<Genre>(), "Id", "Id", book.GenreId);
             return View(book);
         }
 
@@ -99,7 +99,7 @@ namespace Libre.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Publisher,RealeaseDate,Language,Pages,CoverType,Info,GendreId")] Book book)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Publisher,RealeaseDate,Language,Pages,CoverType,Info,GenreId")] Book book)
         {
             if (id != book.Id)
             {
@@ -126,7 +126,7 @@ namespace Libre.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GendreId"] = new SelectList(_context.Set<Gendre>(), "Id", "Id", book.GendreId);
+            ViewData["GenreId"] = new SelectList(_context.Set<Genre>(), "Id", "Id", book.GenreId);
             return View(book);
         }
 
@@ -139,7 +139,7 @@ namespace Libre.Controllers
             }
 
             var book = await _context.Book
-                .Include(b => b.Gendre)
+                .Include(b => b.Genre)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {

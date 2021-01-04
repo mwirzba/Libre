@@ -1,0 +1,77 @@
+﻿@page
+@using Libre.Utility
+@model RegisterModel
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+
+
+<form method="post" asp-route-returnUrl="@Model.ReturnUrl" enctype="multipart/form-data">
+    <div class="border backgroundWhite row">
+        <div class="col">
+            <h1>@ViewData["Title"]</h1>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="Input.Email" class="col-form-label"></label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="Input.Email" class="form-control" style="min-width:150px" />
+                </div>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="Input.Password" class="col-form-label"></label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="Input.Password" class="form-control" style="min-width:150px" />
+                </div>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="Input.ConfirmPassword" class="col-form-label"></label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" style="min-width:150px" />
+                </div>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            @if (User.IsInRole(Strings.Admin))
+            {
+                <div class="form-group row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="form-group btn">
+                        <input type="radio" name="rdUserRole" value="@Strings.User" checked /> <label>@Strings.User</label>
+                    </div>
+                    <div class="form-group btn">
+                        <input type="radio" name="rdUserRole" value="@Strings.Admin" checked /> <label>@Strings.Admin</label>
+                    </div>
+                    <div class="form-group btn">
+                        <input type="radio" name="rdUserRole" value="@Strings.Moderator" checked /> <label>@Strings.Moderator</label>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group row">
+                <div class="col-md-5 offset-md-2">
+                    <button type="submit" class="btn btn-primary form-control" style="min-width:150px">Zarejestruj</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 align-self-center">
+            Rejestrując się na stronie wyrażasz zgodę na przetwarzanie danych osobowych
+            zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27
+            kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem
+            danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).
+        </div>
+    </div>
+</form>

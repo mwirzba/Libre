@@ -1,0 +1,62 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Logowanie";
+}
+<form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+    <div class="border backgroundWhite">
+        <h1>@ViewData["Title"]</h1>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="Input.Email" class="col-form-label"></label>
+            </div>
+            <div class="col-md-5">
+                <input asp-for="Input.Email" class="form-control" style="min-width:150px" />
+            </div>
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="Input.Password" class="col-form-label"></label>
+            </div>
+            <div class="col-md-5">
+                <input asp-for="Input.Password" class="form-control" style="min-width:150px" />
+            </div>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox">
+                <label asp-for="Input.RememberMe">
+                    <input asp-for="Input.RememberMe" />
+                    <label>Zapamiętaj mnie</label>
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-5 offset-md-2">
+                <button type="submit" class="btn btn-primary form-control auth-input-width">Zaloguj</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <p>
+                <a id="forgot-password" asp-page="./ForgotPassword">Zapomniałeś hasła?</a>
+            </p>
+            <p>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Zarejestruj się</a>
+            </p>
+            <p>
+                <button type="submit" asp-page-handler="SendVerificationEmail" class="btn-link" style="padding:0px;margin:0px;border:0px">Wyślij ponownie e-mail weryfikacyjny</button>
+            </p>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -17,7 +17,7 @@ namespace Libre.Models
         public string Info { get; set; }
 
         [ForeignKey("Standard")]
-        public Guid GendreId { get; set; }
-        public Gendre Gendre { get; set; }
+        public Guid GenreId { get; set; }
+        public Genre Genre { get; set; }
     }
 }
