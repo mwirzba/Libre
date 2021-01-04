@@ -29,8 +29,9 @@ namespace Libre.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Hasło jest wymagane")]
             [DataType(DataType.Password)]
+            [Display(Name = "Hasło")]
             public string Password { get; set; }
         }
 

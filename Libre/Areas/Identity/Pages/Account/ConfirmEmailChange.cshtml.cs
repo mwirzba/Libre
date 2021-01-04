@@ -43,7 +43,7 @@ namespace Libre.Areas.Identity.Pages.Account
             var result = await _userManager.ChangeEmailAsync(user, email, code);
             if (!result.Succeeded)
             {
-                StatusMessage = "Error changing email.";
+                StatusMessage = "Błąd zmiany adresu.";
                 return Page();
             }
 
