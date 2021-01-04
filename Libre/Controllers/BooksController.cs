@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Libre.Data;
 using Libre.Models;
+using Libre.Helpers;
+using Libre.ViewModels;
 
 namespace Libre.Controllers
 {
@@ -19,10 +20,28 @@ namespace Libre.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(PageViewModel<Book> viewModelFromView)
         {
+            //ViewBag.Sort = sortType;
             var applicationDbContext = _context.Book.Include(b => b.Genre);
-            return View(await applicationDbContext.ToListAsync());
+
+            var query = new DataHelper<Book>(applicationDbContext, 1, 5);
+
+            if (!string.IsNullOrEmpty(viewModelFromView.Search))
+            {
+                query = query.Where("Title.Contains(@0)", viewModelFromView.Search);                                      
+            }
+
+            query = query.SortBy(viewModelFromView.SortType, "Title");
+
+            var pageViewModel = new PageViewModel<Book>()
+            {
+                CurrentPage = 1,
+                Items = query.ToPagedList(),
+                SortType = viewModelFromView.SortType
+            };
+
+            return View(pageViewModel);
         }
 
         public async Task<IActionResult> Details(Guid? id)
@@ -39,7 +58,7 @@ namespace Libre.Controllers
             if (book == null)
             {
                 return NotFound();
-            }
+            }   
 
             return View(book);
         }

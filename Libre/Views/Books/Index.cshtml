@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Libre.Models.Book>
+﻿@using Libre.ViewModels;
+@using Libre.Helpers;
+
+@model PageViewModel<Book>;
 
 @{
     ViewData["Title"] = "Index";
@@ -9,38 +12,51 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index">
+    <div class="form-group">
+        <select asp-for="@Model.SortType" asp-items="Html.GetEnumSelectList<SortType>()"></select>
+    </div>
+    <div class="form-group">
+        <input asp-for="@Model.Search" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Szukaj" class="btn btn-primary" />
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Publisher)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Publisher)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RealeaseDate)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().RealeaseDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Language)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Language)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pages)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Pages)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CoverType)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().CoverType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Info)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Info)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genre.Name)
+                @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Genre.Name)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Items) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
