@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Libre.Models;
-
 namespace Libre.Data
 {
     public class ApplicationDbContext : IdentityDbContext
@@ -13,7 +9,7 @@ namespace Libre.Data
             : base(options)
         {
         }
-        public DbSet<Libre.Models.Book> Book { get; set; }
-        public DbSet<Libre.Models.Gendre> Gendre { get; set; }
+        public DbSet<Book> Book { get; set; }
+        public DbSet<Gendre> Gendre { get; set; }
     }
 }

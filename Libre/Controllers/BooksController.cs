@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Libre.Data;
 using Libre.Models;
+using Libre.Helpers;
+using Libre.ViewModels;
 
 namespace Libre.Controllers
 {
@@ -19,10 +20,22 @@ namespace Libre.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(SortType sortType = SortType.ascending)
         {
+            ViewBag.Sort = sortType;
             var applicationDbContext = _context.Book.Include(b => b.Gendre);
-            return View(await applicationDbContext.ToListAsync());
+
+            var pagedList = new DataHelper<Book>(applicationDbContext, 1, 5)
+                                            .ToPagedList();
+
+            var pageViewModel = new PageViewModel<Book>()
+            {
+                CurrentPage = 1,
+                Items = pagedList,
+                SortType = sortType
+            };
+
+            return View(pageViewModel);
         }
 
         public async Task<IActionResult> Details(Guid? id)
