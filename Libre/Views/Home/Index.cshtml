@@ -1,8 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Libre.Utility
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container my-4 text-center">
+    <div class="row justify-content-center"><h1>Dzięki nam zwiedzisz świat książek!</h1></div>
+    @if (User.IsInRole(Strings.Moderator) || User.IsInRole(Strings.Admin) || User.IsInRole(Strings.User))
+    {
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card border-dark">
+                    <div class="card-header text-center">
+                        <a class="dropdown-item" asp-area="" asp-controller="Books" asp-action="BooksList">Przeglądaj listę książek</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card-deck mt-3">
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="~/book.webp" alt="Card image cap">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

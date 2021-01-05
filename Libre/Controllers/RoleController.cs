@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;  
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Libre.Utility;
+
 
 namespace TestAppAuthAndAuthorize.Controllers
 {
+    [Authorize(Roles = Strings.Admin)]
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> roleManager;
@@ -15,14 +18,12 @@ namespace TestAppAuthAndAuthorize.Controllers
             this.roleManager = roleManager;
         }
 
-        [Authorize(Policy = "readpolicy")]
         public IActionResult Index()
         {
             var roles = roleManager.Roles.ToList();
             return View(roles);
         }
 
-        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
             return View(new IdentityRole());

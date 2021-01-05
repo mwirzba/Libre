@@ -1,0 +1,59 @@
+﻿@model Libre.Models.BookGenreViewModel
+
+@{
+    ViewData["Title"] = "Lista książek";
+}
+
+<div class="row mt-4 justify-content-center">
+    <h2 class="text-info">Lista książek</h2>
+</div>
+
+
+<div class="container">
+    <div class="row mt-4 justify-content-center">
+        <form class="m-2" asp-controller="Books" asp-action="BooksList" method="get">
+            <div class="row">
+                <div class="input-group">
+                    <select class="form-control" asp-for="BookGenre" asp-items="Model.Genres">
+                        <option value="">Wszystkie</option>
+                    </select>
+
+                    <input class="form-control" placeholder="Tytuł" type="text" asp-for="SearchString"/>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-light" id="btnGroupAddon">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @if (@Model.Books.Any())
+        {
+            @foreach (var book in Model.Books)
+            {
+                <div class="col-md-12 m-2">
+                    <div class="card flex-row flex-wrap">
+                        <div class="card-header border-0">
+                            <img class="m-2" id="img" style="width: 110px;" src="@Url.Content("~/book.svg" )" onerror="this.src='/book.webp'" />
+                        </div>
+                        <div class="card-block px-2">
+                            <h4 class="card-title text-uppercase">
+                                <a asp-action="DetailsForUser" asp-controller="Books" asp-route-id="@book.Id" class="btn btn-link" style="margin-bottom: 10px; font-weight:bold">@book.Title</a>
+                            </h4>
+                            <label class="control-label font-weight-bold">@Html.DisplayNameFor(m => book.Pages)</label>: <label class="control-label">@book.Pages</label><br />
+                            <label class="control-label font-weight-bold">@Html.DisplayNameFor(m => book.Language)</label>: <label class="control-label">@book.Language</label><br />
+                            <div class="w-100"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-md-12 text-center">
+                <h3 class="mt-3">Brak książek</h3>
+            </div>
+        }
+
+    </div>
+</div>
