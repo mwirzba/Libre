@@ -1,66 +1,107 @@
 ﻿@model Libre.Models.Book
+@using Libre.Utility
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="border backgroundWhite">
+    <fieldset disabled>
+        <h2 class="text-info">Szczegóły</h2>
+        <br />
 
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Publisher)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RealeaseDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RealeaseDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Language)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Language)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pages)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pages)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoverType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoverType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre.Id)
-        </dd>
-    </dl>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.Title" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h6>@Model.Title</h6>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.Publisher" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h8>@Model.Publisher</h8>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.Language" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h8>@Model.Language</h8>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.Pages" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h8>@Model.Pages</h8>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.CoverType" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h8>@Model.CoverType</h8>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.RealeaseDate" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h8>@Model.RealeaseDate.Date.ToShortDateString()</h8>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.GenreId" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h8>@Model.Genre.Name</h8>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="@Model.Info" class="control-label font-weight-bold"></label>
+            </div>
+            <div class="col-md-10">
+                <h8>@Model.Info</h8>
+            </div>
+        </div>
+
+    </fieldset>
+    <div class="form-group row">
+        <div class="col-4">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    @{
+                        if (User.IsInRole(Strings.Admin) || User.IsInRole(Strings.Moderator))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info form-control">Edytuj</a>
+                        }
+                    }
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <a asp-action="Index" class="btn btn-success form-control">Wróć</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

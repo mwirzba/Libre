@@ -42,13 +42,6 @@ namespace Libre
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.AddAuthorization(options => {
-                options.AddPolicy("readpolicy",
-                    builder => builder.RequireRole("Admin", "Moderator", "User"));
-                options.AddPolicy("writepolicy",
-                    builder => builder.RequireRole("Admin", "Moderator"));
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

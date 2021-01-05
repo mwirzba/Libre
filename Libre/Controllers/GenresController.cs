@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Libre.Data;
 using Libre.Models;
+using Microsoft.AspNetCore.Authorization;
+using Libre.Utility;
 
 namespace Libre.Controllers
 {
+    [Authorize(Roles = Strings.Admin)]
     public class GenresController : Controller
     {
         private readonly ApplicationDbContext _context;
