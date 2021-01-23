@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System;
 using Libre.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Libre.Infrastructure;
 
 namespace Libre
 {
@@ -42,6 +43,8 @@ namespace Libre
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped(SearchSession.GetSession);
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +65,7 @@ namespace Libre
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

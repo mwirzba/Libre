@@ -9,17 +9,18 @@ using Libre.Data;
 using Libre.Models;
 using Libre.Utility;
 using Microsoft.AspNetCore.Authorization;
-
+using Libre.Infrastructure;
 
 namespace Libre.Controllers
 {
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public BooksController(ApplicationDbContext context)
+        private readonly SearchSession _searchSession;
+        public BooksController(ApplicationDbContext context, SearchSession searchStringSession)
         {
             _context = context;
+            _searchSession = searchStringSession;
         }
 
         [Authorize(Roles = Strings.Admin)]
@@ -30,28 +31,52 @@ namespace Libre.Controllers
         }
 
         [Authorize(Roles = Strings.Admin + "," + Strings.Moderator + "," + Strings.User)]
-        public async Task<IActionResult> BooksList(string bookGenre, string searchString)
+        public IActionResult BookListSearch(Guid bookGenre, string searchString, int page = 1)
         {
-            IQueryable<string> genreQuery = (from m in _context.Genre
-                                             orderby m.Name
-                                            select m.Name);
+            _searchSession.SetSearch(new SearchSettings(searchString, bookGenre));
+            return RedirectToAction("BooksList",new { bookGenre, searchString, page });
+        }
 
-            var books = from m in _context.Book.Include(b => b.Genre) select m;
+        [Authorize(Roles = Strings.Admin + "," + Strings.Moderator + "," + Strings.User)]
+        public async Task<IActionResult> BooksList(Guid bookGenre,string searchString,int page=1)
+        {
+            SearchSettings searchSettings = null;
+            if (bookGenre == Guid.Empty && string.IsNullOrEmpty(searchString))
+            {
+                if (_searchSession.searchSetting != null)
+                {
+                    searchSettings = _searchSession.searchSetting;
+                    bookGenre = searchSettings.BookGendreId;
+                    searchString = searchSettings.SearchString;
+                }
+            }
 
-            if (!String.IsNullOrEmpty(searchString))
+            IQueryable<string> genreQuery = _context.Genre
+                                            .Select(m => m.Name);
+
+            var books = _context.Book.Include(b => b.Genre)
+                                     .Select(b => b); 
+
+            if (!string.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title.Contains(searchString));
             }
 
-            if (!string.IsNullOrEmpty(bookGenre))
+            if (bookGenre != Guid.Empty)
             {
-                books = books.Where(x => x.Genre.Name == bookGenre);
+                books = books.Where(x => x.Genre.Id == bookGenre);
             }
 
             var bookGenreVM = new BookGenreViewModel
             {
-                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
-                Books = await books.ToListAsync()
+                Genres = await _context.Genre.OrderBy(g => g.Name).ToListAsync(),
+                Books = new ListViewModel<Book>()
+                {
+                    PagingInfo = PagingInfo.GetPaginationInfo(books, page, 1,out List<Book> pagedBooks),
+                    Items = pagedBooks
+                },
+                SearchString = searchString,
+                BookGenre = bookGenre
             };
 
             return View(bookGenreVM);
