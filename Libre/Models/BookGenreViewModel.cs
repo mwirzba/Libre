@@ -8,9 +8,9 @@ namespace Libre.Models
 {
     public class BookGenreViewModel
     {
-        public List<Book> Books { get; set; }
-        public SelectList Genres { get; set; }
-        public string BookGenre { get; set; }
+        public ListViewModel<Book> Books { get; set; }
+        public List<Genre> Genres { get; set; }
+        public Guid BookGenre { get; set; }
         public string SearchString { get; set; }
     }
 }
