@@ -77,7 +77,7 @@
                 <label asp-for="Info" class="control-label"></label>
             </div>
             <div class="col-md-10">
-                <input asp-for="Info" class="form-control" />
+                @Html.TextAreaFor(model => model.Info, new { @class = "form-control", @rows = 4 })
             </div>
             <span asp-validation-for="Info" class="text-danger"></span>
         </div>

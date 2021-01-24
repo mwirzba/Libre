@@ -15,6 +15,7 @@ namespace Libre.Controllers
 {
     public class BooksController : Controller
     {
+        private const int PageSize = 10;
         private readonly ApplicationDbContext _context;
         private readonly SearchSession _searchSession;
         public BooksController(ApplicationDbContext context, SearchSession searchStringSession)
@@ -72,7 +73,7 @@ namespace Libre.Controllers
                 Genres = await _context.Genre.OrderBy(g => g.Name).ToListAsync(),
                 Books = new ListViewModel<Book>()
                 {
-                    PagingInfo = PagingInfo.GetPaginationInfo(books, page, 1,out List<Book> pagedBooks),
+                    PagingInfo = PagingInfo.GetPaginationInfo(books, page, PageSize, out List<Book> pagedBooks),
                     Items = pagedBooks
                 },
                 SearchString = searchString,
