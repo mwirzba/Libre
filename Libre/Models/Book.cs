@@ -42,6 +42,7 @@ namespace Libre.Models
         public string Info { get; set; }
 
         [ForeignKey("Standard")]
+        [Display(Name = "Gatunek książki")]
         public Guid GenreId { get; set; }
         public Genre Genre { get; set; }
     }

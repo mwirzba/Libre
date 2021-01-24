@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Delete";
 }
-
 <form method="post" asp-action="Delete">
     <div class="border backgroundWhite">
         <h2 class="text-info">Usuń Kategorię</h2>
@@ -21,6 +20,10 @@
                 <partial name="_DeleteAndBackToListButton" model="Model.Id" />
             </div>
         </div>
+        @if (ViewData["ErrorMessage"] != null)
+        {
+            <h6>@ViewData["ErrorMessage"]</h6>
+        }
     </div>
 </form>
 
