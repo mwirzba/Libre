@@ -131,8 +131,15 @@ namespace Libre.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var genre = await _context.Genre.FindAsync(id);
-            _context.Genre.Remove(genre);
+            if (_context.Book.Any(b => b.GenreId == id))
+            {
+                ViewData["ErrorMessage"] = "Nie można usunąć gatunku książki ,do którego należy jakaś książka.";
+                var genre = await _context.Genre.FirstOrDefaultAsync(m => m.Id == id);
+                return View(genre);
+            }
+
+            var genreToDelete = await _context.Genre.FindAsync(id);
+            _context.Genre.Remove(genreToDelete);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

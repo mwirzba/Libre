@@ -5,97 +5,99 @@
     ViewData["Title"] = "Delete";
 }
 
-<div class="border backgroundWhite">
-    <fieldset disabled>
-        <h2 class="text-info">Usuń</h2>
-        <br />
+    <div class="border backgroundWhite">
+        <fieldset disabled>
+            <h2 class="text-info">Usuń</h2>
+            <br />
 
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.Title" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h6>@Model.Title</h6>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.Publisher" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h8>@Model.Publisher</h8>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.Language" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h8>@Model.Language</h8>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.Pages" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h8>@Model.Pages</h8>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.CoverType" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h8>@Model.CoverType</h8>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.RealeaseDate" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h8>@Model.RealeaseDate.Date.ToShortDateString()</h8>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.GenreId" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h8>@Model.GenreId</h8>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">
-                <label asp-for="@Model.Info" class="control-label font-weight-bold"></label>
-            </div>
-            <div class="col-md-10">
-                <h8>@Model.Info</h8>
-            </div>
-        </div>
-
-    </fieldset>
-    <div class="form-group row">
-        <div class="col-5 offset-2">
-            <div class="row">
-                <div class="col-6">
-                    <input type="submit" class="btn btn-danger form-control" asp-route-id="@Model.Id" value="Usuń" />
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Title" class="control-label font-weight-bold"></label>
                 </div>
-                <div class="col-6">
-                    <a asp-action="Index" class="btn btn-success form-control">Wróć do listy</a>
+                <div class="col-md-10">
+                    <h6>@Model.Title</h6>
                 </div>
             </div>
-        </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Publisher" class="control-label font-weight-bold"></label>
+                </div>
+                <div class="col-md-10">
+                    <h8>@Model.Publisher</h8>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Language" class="control-label font-weight-bold"></label>
+                </div>
+                <div class="col-md-10">
+                    <h8>@Model.Language</h8>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Pages" class="control-label font-weight-bold"></label>
+                </div>
+                <div class="col-md-10">
+                    <h8>@Model.Pages</h8>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.CoverType" class="control-label font-weight-bold"></label>
+                </div>
+                <div class="col-md-10">
+                    <h8>@Model.CoverType</h8>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.RealeaseDate" class="control-label font-weight-bold"></label>
+                </div>
+                <div class="col-md-10">
+                    <h8>@Model.RealeaseDate.Date.ToShortDateString()</h8>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.GenreId" class="control-label font-weight-bold"></label>
+                </div>
+                <div class="col-md-10">
+                    <h8>@Model.Genre.Name</h8>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="@Model.Info" class="control-label font-weight-bold"></label>
+                </div>
+                <div class="col-md-10">
+                    <h8>@Model.Info</h8>
+                </div>
+            </div>
+
+        </fieldset>
+        <form method="post" asp-action="Delete">
+            <div class="form-group row">
+                <div class="col-5 offset-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-danger form-control" asp-route-id="@Model.Id" value="Usuń" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-success form-control">Wróć do listy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
